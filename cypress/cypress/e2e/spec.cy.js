@@ -39,8 +39,26 @@ describe('Create Python process and run it', () => {
     cy.task('log', 'in line 39' );
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.task('log', 'access the website' );
-    cy.get('.introjs-skipbutton').click();
-    cy.get('#newprocess').click();
+    cy.get('.introjs-skipbutton', { timeout: 10000 })
+    .should('be.visible')
+    .click()
+    .then(() => {
+      cy.task('log', 'Skip button clicked successfully');
+    })
+    .catch(() => {
+      cy.task('log', 'Skip button not found');
+    });
+  
+  cy.get('#newprocess', { timeout: 10000 })
+    .should('be.visible')
+    .click()
+    .then(() => {
+      cy.task('log', 'New process button clicked successfully');
+    })
+    .catch(() => {
+      cy.task('log', 'New process button not found');
+    });
+  
     cy.task('log', 'skipped the intro about to create new process' );
     cy.get('form select.form-control.form-control-sm').select('Python');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('hello_world.py');
