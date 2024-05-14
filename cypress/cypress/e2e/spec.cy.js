@@ -1,3 +1,41 @@
+
+describe('Navigation', () => {
+  it('should navigate to different pages', () => {
+    
+    cy.task('log', 'Start the testcase')
+    cy.visit('http://localhost:8070/Geoweaver'); 
+    cy.task('log', 'Access the site')
+    cy.get('.introjs-skipbutton').click();
+    cy.task('log', 'Got into the skip button')
+    
+    cy.contains('Log' , { timeout: 10000 }).click();
+    cy.contains('Logging').should('be.visible');
+
+    cy.task('log', 'Starting access the navigation links')
+    cy.contains('Status' , { timeout: 10000 }).click();
+    cy.contains('Real Time Status').should('be.visible');
+    
+    cy.contains('Guide' , { timeout: 10000 }).click();
+    cy.contains('Geoweaver User Guide').should('be.visible');
+
+    cy.contains('Tools' , { timeout: 10000 }).click();
+    cy.get('[data-intro="All the other tools"]').click();
+    cy.get('[onclick="GW.feedback.showDialog()"]').click();
+
+    cy.get(':nth-child(5) > .btn').should('be.visible');
+
+    cy.contains('History' , { timeout: 10000 }).click();
+    cy.contains('Recent History').should('be.visible');
+
+    cy.contains('Contact' , { timeout: 10000 }).click();
+    cy.contains('Have feedback?').should('be.visible');
+
+    cy.contains('About' , { timeout: 10000 }).click();
+    cy.contains('Geoweaver is a web system').should('be.visible');
+  });   
+});
+
+
 describe('Write Password into .secret', () => {
   it('Should write secret to a file', () => {
     // Hash value to be written to the file
@@ -45,14 +83,14 @@ describe('Create Python process and run it', () => {
     .then(() => {
       cy.task('log', 'Skip button clicked successfully');
     });
-  
+    cy.task('log', 'skip is done' );
   cy.get('#newprocess', { timeout: 10000 })
     .should('be.visible')
     .click()
     .then(() => {
       cy.task('log', 'New process button clicked successfully');
     });
-  
+    cy.task('log', 'in line 88' );
     cy.task('log', 'skipped the intro about to create new process' );
     cy.get('form select.form-control.form-control-sm').select('Python');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('hello_world.py');
