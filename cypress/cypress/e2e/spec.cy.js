@@ -36,10 +36,12 @@ describe('Write Password into .secret', () => {
 describe('Create Python process and run it', () => {
   it('creates python process and runs', () => {
     cy.task('log', 'In creating python process and running it' );
-    cy.visit('http://localhost:8070/Geoweaver');
+    cy.task('log', 'in line 39' );
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.task('log', 'access the website' );
     cy.get('.introjs-skipbutton').click();
     cy.get('#newprocess').click();
-
+    cy.task('log', 'skipped the intro about to create new process' );
     cy.get('form select.form-control.form-control-sm').select('Python');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('hello_world.py');
     cy.task('log', 'just created and named new process as hello_world.py' );
