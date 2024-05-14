@@ -44,9 +44,6 @@ describe('Create Python process and run it', () => {
     .click()
     .then(() => {
       cy.task('log', 'Skip button clicked successfully');
-    })
-    .catch(() => {
-      cy.task('log', 'Skip button not found');
     });
   
   cy.get('#newprocess', { timeout: 10000 })
@@ -54,9 +51,6 @@ describe('Create Python process and run it', () => {
     .click()
     .then(() => {
       cy.task('log', 'New process button clicked successfully');
-    })
-    .catch(() => {
-      cy.task('log', 'New process button not found');
     });
   
     cy.task('log', 'skipped the intro about to create new process' );
