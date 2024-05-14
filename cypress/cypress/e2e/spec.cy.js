@@ -388,10 +388,7 @@ describe('Write Password into .secret', () => {
 
 describe('Create Python process and run it', () => {
   it('creates python process and runs', () => {
-    cy.task('log', 'In creating python process and running it' );
-    cy.task('log', 'in line 39' );
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-    cy.task('log', 'access the website' );
     cy.get('.introjs-skipbutton', { timeout: 10000 })
     .should('be.visible')
     .click()
@@ -405,20 +402,12 @@ describe('Create Python process and run it', () => {
     .then(() => {
       cy.task('log', 'New process button clicked successfully');
     });
-    cy.task('log', 'in line 88' );
-    cy.task('log', 'skipped the intro about to create new process' );
     cy.get('form select.form-control.form-control-sm').select('Python');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('hello_world.py');
-    cy.task('log', 'just created and named new process as hello_world.py' );
 
     cy.get('.CodeMirror-lines').type("\nprint('hello world!')");
-    cy.task('log', 'Code is written to the monitor' );
     cy.get('.modal-footer').contains('Add').click();
-
-    cy.task('log', 'Added the process' );
     cy.get('ul#process_folder_python_target').contains('hello_world.py').click();
-
-    cy.task('log', 'hello_world.py process is created completely' );
     cy.get('#processid').then(($input) => {
       const processId = $input.val(); // Get the value of the input field
       console.log('process id ',processId)
@@ -427,20 +416,12 @@ describe('Create Python process and run it', () => {
     });
    
     cy.get('#host-execute-btn').click();
-    cy.task('log', 'Clicked on execute button' );
     cy.get('#process-confirm-btn').click();
-    cy.task('log', 'Password is confirmed' );
     cy.get('#inputpswd').clear('1');
-    cy.task('log', 'Inputting the password' );
     cy.get('#inputpswd').type('1234');
     cy.get('#pswd-confirm-btn').click();
-    cy.task('log', 'Passowrd confirm is done' );
     cy.intercept('POST','/Geoweaver/web/executeProcess').as('executeProcess'); 
     cy.wait('@executeProcess').its('response.statusCode').should('eq', 200);
-    // cy.get('#single-console-content').should('contain', 'hello world!');
-    // cy.get('#single-console-content').should('contain', 'Exit Code: 0');
-    // cy.get('#process-log-window').click();
-    // cy.get('#process-log-window').should('be.visible');
    
   });
 });
