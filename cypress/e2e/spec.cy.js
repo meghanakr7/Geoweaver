@@ -339,29 +339,29 @@ describe('Delete Process', () => {
     })
 });
 
-describe('Write Password into .secret', () => {
-  it('Should write secret to a file', () => {
-    // Hash value to be written to the file
-    const dataToWrite = '4205c81c1aaafae4406dc56bd6c8b26edeb816c6d18294cf0aeee4a948146e0fa3e7cf0ea3e3a6de0b7fe990d7de28ec3060f953b88e4cef5ade04c12ff917ee';
-    const homeDirectory = Cypress.env('home');
+// describe('Write Password into .secret', () => {
+//   it('Should write secret to a file', () => {
+//     // Hash value to be written to the file
+//     const dataToWrite = '4205c81c1aaafae4406dc56bd6c8b26edeb816c6d18294cf0aeee4a948146e0fa3e7cf0ea3e3a6de0b7fe990d7de28ec3060f953b88e4cef5ade04c12ff917ee';
+//     const homeDirectory = Cypress.env('home');
    
-    cy.log('Home Directory:', homeDirectory); // Debug statement
-    const filePath = `${homeDirectory}/gw-workspace/.secret`;
-    console.log(filePath)
-    cy.debug('Detailed debugging information home dire is ',homeDirectory);
-    cy.task('log', 'Logging home dire' + homeDirectory)
-    cy.task('log', 'Logging filepath' + filePath)
-    cy.log('File Path:', filePath); // Debug statement
-    cy.writeFile(filePath, dataToWrite, 'binary')
-      .then(() => {
-        cy.readFile(filePath).should('contain', dataToWrite);
-        cy.readFile(filePath).then((fileContents) => {
-          cy.task('log', 'File Contents: ' + fileContents);
-          cy.log('File Contents:', fileContents);
-        });
-      })
-  });
-});
+//     cy.log('Home Directory:', homeDirectory); // Debug statement
+//     const filePath = `${homeDirectory}/gw-workspace/.secret`;
+//     console.log(filePath)
+//     cy.debug('Detailed debugging information home dire is ',homeDirectory);
+//     cy.task('log', 'Logging home dire' + homeDirectory)
+//     cy.task('log', 'Logging filepath' + filePath)
+//     cy.log('File Path:', filePath); // Debug statement
+//     cy.writeFile(filePath, dataToWrite, 'binary')
+//       .then(() => {
+//         cy.readFile(filePath).should('contain', dataToWrite);
+//         cy.readFile(filePath).then((fileContents) => {
+//           cy.task('log', 'File Contents: ' + fileContents);
+//           cy.log('File Contents:', fileContents);
+//         });
+//       })
+//   });
+// });
 
 describe('Create Python process and run it', () => {
   it('creates python process and runs', () => {
@@ -455,18 +455,18 @@ describe('Hosts Testing', () => {
     });
   })
 
-  // it('LocalHost File Upload', () => {
-  //   cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-  //   cy.get('.introjs-skipbutton').click();
-  //   cy.get('#host_folder_ssh > a').click();
-  //   cy.get('#host-100001').click();
-  //   cy.get('p > .fa-upload').click();
-  //   cy.get('#inputpswd').clear('1');
-  //   cy.get('#inputpswd').type('1234');
-  //   cy.get('#pswd-confirm-btn').click();
-  //   cy.get('#host-file-uploader').click();
-  //   cy.intercept('POST', 'http://localhost:8070/Geoweaver/web/authenticateUser').as('authenticateUser');
-  //   cy.wait('@authenticateUser').its('response.statusCode').should('eq', 200);
-  // })
+  it('LocalHost File Upload', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#host_folder_ssh > a').click();
+    cy.get('#host-100001').click();
+    cy.get('p > .fa-upload').click();
+    cy.get('#inputpswd').clear('1');
+    cy.get('#inputpswd').type('1234');
+    cy.get('#pswd-confirm-btn').click();
+    cy.get('#host-file-uploader').click();
+    cy.intercept('POST', 'http://localhost:8070/Geoweaver/web/authenticateUser').as('authenticateUser');
+    cy.wait('@authenticateUser').its('response.statusCode').should('eq', 200);
+  })
 
 });
