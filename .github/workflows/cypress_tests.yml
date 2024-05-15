@@ -18,6 +18,8 @@ jobs:
           architecture: x64
       - name: Build with Maven
         run: mvn clean install
+      - name: Install pygeoweaver
+        run: pip install pygeoweaver --upgrade
       - name: Reset Geoweaver password
         run: java -jar geoweaver.jar resetpassword --password=1234
       - name: Start application
