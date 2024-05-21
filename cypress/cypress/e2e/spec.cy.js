@@ -229,7 +229,7 @@ describe('Process Testing', () => {
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
     cy.get('.modal-footer', { timeout: 10000 }).should('be.visible').contains('Add').click();
-
+    cy.get('#process_folder_shell').click();
     cy.get('ul#process_folder_shell_target').should('contain', 'shell_test');
     })
 
@@ -241,6 +241,7 @@ describe('Process Testing', () => {
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('python_test');
     cy.get('.modal-footer').contains('Add').click();
+    cy.get('#process_folder_python').click();
     cy.get('ul#process_folder_python_target').should('contain', 'python_test');
   })
 
@@ -271,7 +272,7 @@ describe('Add Process to Weaver', () => {
   it('Add to weaver - notebook process', () => {
     cy.visit('http://localhost:8070/Geoweaver');
     cy.get('.introjs-skipbutton').click();
-    cy.get('#process_folder_shell').click();
+    cy.get('#process_folder_jupyter_target').click();
     cy.get('ul#process_folder_jupyter_target').contains('button', 'Add to Weaver').click();
     cy.get('circle').should('be.visible');
   })
