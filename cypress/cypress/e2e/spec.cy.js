@@ -208,7 +208,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 //   cy.get('#instant_search_bar').type('New ');
 //   cy.get('#host-b4ijvz').should('be.visible');
 //   })
-});
+// });
 
 describe('Process Testing', () => {
   it('Create Shell Process', () => {
