@@ -283,7 +283,12 @@ describe('Delete Process', () => {
       cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
       cy.get('.introjs-skipbutton').click();
       cy.get('#process_folder_shell').click();
-      cy.get('ul#process_folder_shell_target').contains('updated_shell_test').click();
+      cy.get('ul#process_folder_shell_target', { timeout: 10000 })
+      .should('be.visible')
+      .and('contain', 'updated_shell_test')
+      .contains('updated_shell_test')
+      .click();
+
       cy.contains('button', 'Delete').click();
       cy.get('#del-confirm-btn').click();
       cy.get('#main-general-content').click();
