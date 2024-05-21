@@ -55,12 +55,12 @@ jobs:
       - name: List cypress directory
         run: |
           echo "Listing cypress directory"
-          ls -al cypress
+          ls -al cypress/cypress
 
-      - name: List cypress/screenshots directory
+      - name: List cypress/cypress/screenshots directory
         run: |
-          echo "Listing cypress/screenshots directory"
-          ls -al cypress/screenshots || echo "cypress/screenshots directory does not exist"
+          echo "Listing cypress/cypress/screenshots directory"
+          ls -al cypress/screenshots || echo "cypress/cypress/screenshots directory does not exist"
         if: failure()
 
       - name: Upload Cypress screenshots
@@ -68,5 +68,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: cypress/cypress/screenshots
           if-no-files-found: warn
