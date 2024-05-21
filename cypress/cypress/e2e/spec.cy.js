@@ -218,6 +218,7 @@ describe('Process Testing', () => {
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
     cy.get('.modal-footer').contains('Add').click();
+    cy.wait(1000);
     cy.get('ul#process_folder_shell_target').should('contain', 'shell_test');
     })
 
@@ -229,6 +230,7 @@ describe('Process Testing', () => {
       cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
       cy.get('form > :nth-child(1) > :nth-child(4)').type('python_test');
       cy.get('.modal-footer').contains('Add').click();
+      cy.wait(1000);
       cy.get('ul#process_folder_python_target').should('contain', 'python_test');
     })
 
