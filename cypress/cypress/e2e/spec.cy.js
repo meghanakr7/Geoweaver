@@ -219,6 +219,7 @@ describe('Process Testing', () => {
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
     cy.get('.modal-footer').contains('Add').click();
+    cy.wait(2000); 
     cy.get('ul#process_folder_shell_target').should('contain', 'shell_test');
     })
 
@@ -247,14 +248,14 @@ describe('Process Testing', () => {
 
 
 describe('Add Process to Weaver', () => {
-  it('Add to weaver', () => {
+  it('Add to weaver - shell', () => {
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_shell').click();
     cy.get('ul#process_folder_shell_target').contains('button', 'Add to Weaver').click();
     cy.get('circle').should('be.visible');
   })
-  it('Add to weaver', () => {
+  it('Add to weaver - python', () => {
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_python').click();
@@ -342,26 +343,23 @@ describe('Edit Process Name', () => {
 // });
 
 describe('Create Python process and run it', () => {
-
   it('creates python process and runs test', function() {
-    /* ==== Generated with Cypress Studio ==== */
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_python').click();
     cy.get('#newprocess').click();
-    cy.get('[id^="processcategory-"]').select('python'); // Select element with id starting with 'processcategory-'
-    cy.get('[id^="processname-"]').clear().type('check_this'); // Clear and type in element with id starting with 'processname-'
+    cy.get('[id^="processcategory-"]').select('python');
+    cy.get('[id^="processname-"]').clear().type('check_this'); 
     cy.get('.view-lines').click();
-    cy.get('[id^="add-process-"]').last().click(); // Click on the last element with id starting with 'add-process-'
-    cy.get('[id^="process-"] > .row > .col-md-8 > span').last().click(); // Click on the last element with id starting with 'process-'
-    cy.get('[onclick*="runProcess"]').last().click(); // Click on the last element with onclick attribute containing 'runProcess'
+    cy.get('[id^="add-process-"]').last().click(); 
+    cy.get('[id^="process-"] > .row > .col-md-8 > span').last().click(); 
+    cy.get('[onclick*="runProcess"]').last().click();
     cy.get('#host-execute-btn').click();
     cy.get('#process-confirm-btn').click();
-    cy.get('#inputpswd').clear().type('1234'); // Clear and type in input with id 'inputpswd'
+    cy.get('#inputpswd').clear().type('1234'); 
     cy.get('#pswd-confirm-btn').click();
     cy.get('#process-log-window > :nth-child(3)').click();
     cy.get('#process-log-window > :nth-child(3) > span').should('be.visible');
-    /* ==== End Cypress Studio ==== */
   });
 });
 
