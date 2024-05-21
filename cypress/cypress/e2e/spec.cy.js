@@ -215,6 +215,7 @@ describe('Process Testing', () => {
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#newprocess').click();
+    cy.get('form select.form-control.form-control-sm').select('Shell');
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
     cy.get('.modal-footer').contains('Add').click();
@@ -247,27 +248,46 @@ describe('Process Testing', () => {
 
 describe('Add Process to Weaver', () => {
   it('Add to weaver', () => {
-    cy.visit('http://localhost:8070/Geoweaver');
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_shell').click();
     cy.get('ul#process_folder_shell_target').contains('button', 'Add to Weaver').click();
     cy.get('circle').should('be.visible');
   })
- 
+  it('Add to weaver', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#process_folder_python').click();
+    cy.get('ul#process_folder_python_target').contains('button', 'Add to Weaver').click();
+    cy.get('circle').should('be.visible');
+  })
   
   
 });
 
 describe('Edit Process Name', () => {
-  it('Add to weaver', () => {
-    cy.visit('http://localhost:8070/Geoweaver');
+  it('Edit shell process name', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_shell').click();
     cy.get('ul#process_folder_shell_target').contains('shell_test').click();
     cy.get('#processname').clear('ushell_test');
     cy.get('#processname').type('updated_shell_test');
     cy.get('[onclick="GW.process.editSwitch()"] > .glyphicon').click();
+    cy.get('#process-btn-group > .h6 > [onclick="GW.process.editSwitch()"]').click();
     cy.get('ul#process_folder_shell_target').should('contain', 'updated_shell_test');
+  })
+
+  it('Edit python porcess name', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#process_folder_python').click();
+    cy.get('ul#process_folder_python_target').contains('python_test').click();
+    cy.get('#processname').clear('');
+    cy.get('#processname').type('updated_python_test');
+    cy.get('[onclick="GW.process.editSwitch()"] > .glyphicon').click();
+    cy.get('#process-btn-group > .h6 > [onclick="GW.process.editSwitch()"]').click();
+    cy.get('ul#process_folder_python_target').should('contain', 'updated_python_test');
 
   })
   it('process category and id should be disabled', () => {
