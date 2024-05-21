@@ -279,17 +279,17 @@ describe('Edit Process Name', () => {
     // cy.get('[onclick="GW.process.editSwitch()"] > .glyphicon').click();
     cy.get('#process-btn-group > .h6 > [onclick="GW.process.editSwitch()"]').click();
     cy.get('ul#process_folder_python_target').should('contain', 'updated_python_test');
-    // it('process category and id should be disabled', () => {
-    //   cy.visit('http://localhost:8070/Geoweaver');
-    //   cy.get('.introjs-skipbutton').click();
-    //   cy.get('#process_folder_python').click();
-    //   cy.get('ul#process_folder_python_target').contains('updated_python_test').click();
-    //   cy.get('#processcategory').should('be.disabled');
-    //   cy.get('#processid').should('be.disabled')
-    // })
-
   })
- 
+  it('process category and id should be disabled', () => {
+    cy.visit('http://localhost:8070/Geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#process_folder_python').click();
+    cy.get('ul#process_folder_python_target').should('contain', 'updated_python_test');
+    cy.get('ul#process_folder_python_target').contains('updated_python_test').click();
+    cy.get('#processcategory').should('be.disabled');
+    cy.get('#processid').should('be.disabled')
+  })
+
 });
 
 
