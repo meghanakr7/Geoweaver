@@ -46,10 +46,17 @@ jobs:
           browser: chrome
           spec: cypress/e2e/spec.cy.js
           working-directory: ./cypress
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
+      - name: List cypress/screenshots directory (debugging)
+        run: |
+          echo "Checking for screenshots in cypress/screenshots directory"
+          ls -al cypress/screenshots
         if: failure()
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+          if-no-files-found: warn
 
