@@ -294,8 +294,8 @@ describe('Edit Process Name', () => {
   it('process category and id should be disabled', () => {
     cy.visit('http://localhost:8070/Geoweaver');
     cy.get('.introjs-skipbutton').click();
-    cy.get('#process_folder_shell').click();
-    cy.get('ul#process_folder_shell_target').contains('updated_shell_test').click();
+    cy.get('#process_folder_python').click();
+    cy.get('ul#process_folder_python_target').contains('updated_python_test').click();
     cy.get('#processcategory').should('be.disabled');
     cy.get('#processid').should('be.disabled')
   })
