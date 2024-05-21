@@ -46,3 +46,6 @@ jobs:
           browser: chrome
           spec: cypress/e2e/spec.cy.js
           working-directory: ./cypress
+      - name: Create folder
+          run: |
+            mkdir -p cypress/screenshots
