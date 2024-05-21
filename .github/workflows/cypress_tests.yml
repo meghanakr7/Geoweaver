@@ -39,6 +39,9 @@ jobs:
               sleep 5
             fi
           done
+      - name: Create folder
+        run: |
+          mkdir -p cypress/screenshots
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -46,6 +49,3 @@ jobs:
           browser: chrome
           spec: cypress/e2e/spec.cy.js
           working-directory: ./cypress
-      - name: Create folder
-          run: |
-            mkdir -p cypress/screenshots
