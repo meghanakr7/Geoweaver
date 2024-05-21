@@ -211,48 +211,68 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 // });
 
 describe('Process Testing', () => {
+
+  it('try_shell', function() {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#newprocess').click();  
+    cy.get('form > :nth-child(1) > :nth-child(4)').clear().type('new_shell');
+    cy.get('.modal-footer').contains('Add').click();
+    cy.get('ul#process_folder_shell_target').should('contain', 'new_shell');
+  });
+
+
   it('Create Shell Process', () => {
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#newprocess').click();
     cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
     cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
-    cy.get('.modal-footer').should('be.visible').contains('Add').click();
-    cy.wait(1000);
+    cy.get('.modal-footer', { timeout: 10000 }).should('be.visible').contains('Add').click();
+
     cy.get('ul#process_folder_shell_target').should('contain', 'shell_test');
     })
 
-    it('Create Python Process', () => {
-      cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-      cy.get('.introjs-skipbutton').click();
-      cy.get('#newprocess').click();
-      cy.get('form select.form-control.form-control-sm').select('Python');
-      cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
-      cy.get('form > :nth-child(1) > :nth-child(4)').type('python_test');
-      cy.get('.modal-footer').should('be.visible').contains('Add').click();
-      cy.wait(1000);
-      cy.get('ul#process_folder_python_target').should('contain', 'python_test');
-    })
+  it('Create Python Process', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#newprocess').click();
+    cy.get('form select.form-control.form-control-sm').select('Python');
+    cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
+    cy.get('form > :nth-child(1) > :nth-child(4)').type('python_test');
+    cy.get('.modal-footer').contains('Add').click();
+    cy.get('ul#process_folder_python_target').should('contain', 'python_test');
+  })
 
-    it('Create Notebook Process', () => {
-      cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-      cy.get('.introjs-skipbutton').click();
-      cy.get('#newprocess').click();
-      cy.get('form select.form-control.form-control-sm').select('Jupyter Notebook');
-      cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
-      cy.get('form > :nth-child(1) > :nth-child(4)').type('notebook_test');
-      cy.get('.modal-footer').contains('Add').click();
-      cy.get('ul#process_folder_jupyter_target').should('contain', 'notebook_test');
-    }) 
+  it('Create Notebook Process', () => {
+    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#newprocess').click();
+    cy.get('form select.form-control.form-control-sm').select('Jupyter Notebook');
+    cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
+    cy.get('form > :nth-child(1) > :nth-child(4)').type('notebook_test');
+    cy.get('.modal-footer').contains('Add').click();
+    cy.get('ul#process_folder_jupyter_target').should('contain', 'notebook_test');
+  })
+
+  /* ==== Test Created with Cypress Studio ==== */
+  
 });
 
 
 describe('Add Process to Weaver', () => {
-  it('Add to weaver', () => {
+  it('Add to weaver - shell process ', () => {
     cy.visit('http://localhost:8070/Geoweaver');
     cy.get('.introjs-skipbutton').click();
     cy.get('#process_folder_shell').click();
     cy.get('ul#process_folder_shell_target').contains('button', 'Add to Weaver').click();
+    cy.get('circle').should('be.visible');
+  })
+  it('Add to weaver - notebook process', () => {
+    cy.visit('http://localhost:8070/Geoweaver');
+    cy.get('.introjs-skipbutton').click();
+    cy.get('#process_folder_shell').click();
+    cy.get('ul#process_folder_jupyter_target').contains('button', 'Add to Weaver').click();
     cy.get('circle').should('be.visible');
   })
 });
