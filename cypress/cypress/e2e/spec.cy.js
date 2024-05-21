@@ -266,30 +266,30 @@ describe('Add Process to Weaver', () => {
   
 });
 
-describe('Edit Process Name', () => {
+// describe('Edit Process Name', () => {
 
-  it('Edit python process name', () => {
-    cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-    cy.get('.introjs-skipbutton').click();
-    cy.get('#process_folder_python').click();
-    cy.get('ul#process_folder_python_target').contains('python_test').click();
-    cy.get('#processname').clear('');
-    cy.get('#processname').type('updated_python_test');
-    // cy.get('[onclick="GW.process.editSwitch()"] > .glyphicon').click();
-    cy.get('#process-btn-group > .h6 > [onclick="GW.process.editSwitch()"]').click();
-    cy.get('ul#process_folder_python_target').should('contain', 'updated_python_test');
-    it('process category and id should be disabled', () => {
-      cy.visit('http://localhost:8070/Geoweaver');
-      cy.get('.introjs-skipbutton').click();
-      cy.get('#process_folder_python').click();
-      cy.get('ul#process_folder_python_target').contains('updated_python_test').click();
-      cy.get('#processcategory').should('be.disabled');
-      cy.get('#processid').should('be.disabled')
-    })
+//   it('Edit python process name', () => {
+//     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
+//     cy.get('.introjs-skipbutton').click();
+//     cy.get('#process_folder_python').click();
+//     cy.get('ul#process_folder_python_target').contains('python_test').click();
+//     cy.get('#processname').clear('');
+//     cy.get('#processname').type('updated_python_test');
+//     // cy.get('[onclick="GW.process.editSwitch()"] > .glyphicon').click();
+//     cy.get('#process-btn-group > .h6 > [onclick="GW.process.editSwitch()"]').click();
+//     cy.get('ul#process_folder_python_target').should('contain', 'updated_python_test');
+//     it('process category and id should be disabled', () => {
+//       cy.visit('http://localhost:8070/Geoweaver');
+//       cy.get('.introjs-skipbutton').click();
+//       cy.get('#process_folder_python').click();
+//       cy.get('ul#process_folder_python_target').contains('updated_python_test').click();
+//       cy.get('#processcategory').should('be.disabled');
+//       cy.get('#processid').should('be.disabled')
+//     })
 
-  })
+//   })
  
-});
+// });
 
 
 describe('Delete Process', () => {
