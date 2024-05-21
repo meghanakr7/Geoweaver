@@ -46,17 +46,18 @@ jobs:
           browser: chrome
           spec: cypress/e2e/spec.cy.js
           working-directory: ./cypress
-      - name: Debug: List root directory
+
+      - name: List root directory
         run: |
           echo "Listing root directory"
           ls -al
 
-      - name: Debug: List cypress directory
+      - name: List cypress directory
         run: |
           echo "Listing cypress directory"
           ls -al cypress
 
-      - name: Debug: List cypress/screenshots directory
+      - name: List cypress/screenshots directory
         run: |
           echo "Listing cypress/screenshots directory"
           ls -al cypress/screenshots || echo "cypress/screenshots directory does not exist"
