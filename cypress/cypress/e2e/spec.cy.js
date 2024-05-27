@@ -211,17 +211,6 @@ describe('Host Testing', () => {
 });
 
 describe('Process Testing', () => {
-  // it('Create Shell Process', () => {
-  //   cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-  //   cy.get('.introjs-skipbutton').click();
-  //   cy.get('#newprocess').click();
-  //   cy.get('form select.form-control.form-control-sm').select('Shell');
-  //   cy.get('form > :nth-child(1) > :nth-child(4)').clear('t');
-  //   cy.get('form > :nth-child(1) > :nth-child(4)').type('shell_test');
-  //   cy.get('.modal-footer').contains('Add').click();
-  //   cy.wait(2000); 
-  //   cy.get('ul#process_folder_shell_target').should('contain', 'shell_test');
-  //   })
 
     it('Create Python Process', () => {
       cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
@@ -248,13 +237,6 @@ describe('Process Testing', () => {
 
 
 describe('Add Process to Weaver', () => {
-  // it('Add to weaver - shell', () => {
-  //   cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
-  //   cy.get('.introjs-skipbutton').click();
-  //   cy.get('#process_folder_shell').click();
-  //   cy.get('ul#process_folder_shell_target').contains('button', 'Add to Weaver').click();
-  //   cy.get('circle').should('be.visible');
-  // })
   it('Add to weaver - python', () => {
     cy.visit('http://localhost:8070/Geoweaver/web/geoweaver');
     cy.get('.introjs-skipbutton').click();
