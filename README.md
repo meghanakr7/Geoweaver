@@ -26,6 +26,11 @@ Only two things basically:
 
 # [Upgrade](docs/upgrade.md)
 
+# Creating a New Release
+
+For detailed steps on how to create a new release in Geoweaver, please refer to the [release instructions](docs/release_steps.md).
+
+
 # [Tutorial](https://zihengsun.github.io/Geoweaver/)
 
 * [Create and Manipulate Hosts](docs/host.md)
