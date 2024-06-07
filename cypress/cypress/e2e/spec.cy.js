@@ -342,7 +342,7 @@ describe('Hosts Testing', () => {
     cy.get('#host-100001').click();
     cy.get('.fab').click();
     cy.get('#inputpswd').clear('1');
-    cy.get('#inputpswd').type('1234');
+    cy.get('#inputpswd').type('12345');
     cy.get('#pswd-confirm-btn').click();
     cy.intercept('POST', '/Geoweaver/web/readEnvironment').as('readEnvironment');
     cy.wait('@readEnvironment').then((interception) => {
