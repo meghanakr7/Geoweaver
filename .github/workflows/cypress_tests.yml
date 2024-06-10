@@ -27,13 +27,13 @@ jobs:
 
 
       - name: Reset Geoweaver password
-        run: java -jar geoweaver.jar resetpassword --password=1234
+        run: java -jar ./target/geoweaver.jar resetpassword --password=1234
 
      
 
       - name: Start application
         # run: mvn spring-boot:run -Dskip=true &
-        run:  java -jar ./target/geoweaver-1.0.0.jar start --force
+        run:  java -jar ./target/geoweaver.jar start --force
 
       - name: Wait for localhost page to be accessible
         run: |
