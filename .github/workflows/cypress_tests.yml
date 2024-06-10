@@ -32,8 +32,8 @@ jobs:
      
 
       - name: Start application
-        # run: mvn spring-boot:run -Dskip=true &
-        run:  java -jar ./target/geoweaver.jar start --force
+        run: mvn spring-boot:run -Dskip=true &
+        # run:  java -jar ./target/geoweaver.jar start --force
 
       - name: Wait for localhost page to be accessible
         run: |
