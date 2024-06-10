@@ -4,11 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gw.database.HistoryRepository;
 import com.gw.jpa.ExecutionStatus;
 import com.gw.jpa.History;
+import com.gw.jpa.HistoryDTO;
 import com.gw.ssh.SSHSession;
 import com.gw.utils.BaseTool;
 import com.gw.utils.RandomString;
 import com.gw.web.GeoweaverController;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.Clob;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -182,8 +191,7 @@ public class HistoryTool {
   }
 
   public List<History> getHistoryByWorkflowId(String wid) {
-
-    return historyrepository.findByProcessId(wid);
+    return historyrepository.findByWorkflowId(wid);
   }
 
   /**
@@ -196,7 +204,7 @@ public class HistoryTool {
 
     StringBuffer resp = new StringBuffer();
 
-    List<History> active_processes = historyrepository.findByProcessId(workflow_id);
+    List<History> active_processes = historyrepository.findByWorkflowId(workflow_id);
 
     try {
 
@@ -214,55 +222,74 @@ public class HistoryTool {
     return resp.toString();
   }
 
-  public String process_all_history(String pid, boolean ignoreskipped) {
+  public static String clobToString(Clob clob) throws SQLException, IOException {
+        StringBuilder sb = new StringBuilder();
+        try (Reader reader = clob.getCharacterStream();
+             BufferedReader br = new BufferedReader(reader)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+        return sb.toString();
+    }
+
+  public String process_all_history(String pid, boolean ignoreskipped, String mode) {
 
     StringBuffer resp = new StringBuffer();
-
-    List<History> active_processes = null;
-
-    if (ignoreskipped) active_processes = historyrepository.findByProcessIdIgnoreUnknown(pid);
-    else active_processes = historyrepository.findByProcessId(pid);
 
     try {
 
       String json = "[]";
+
       ObjectMapper mapper = new ObjectMapper();
-      json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(active_processes);
+
+      if("full".equals(mode)){
+
+        List<History> processes = null;
+
+        if (ignoreskipped) 
+          processes = historyrepository.findByProcessIdIgnoreUnknownFull(pid);
+        else 
+          processes = historyrepository.findByProcessIdFull(pid);
+
+        json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(processes);
+
+      }else{
+
+        List<Object[]> active_processes = null;
+
+        if (ignoreskipped) 
+          active_processes = historyrepository.findByProcessIdIgnoreUnknown(pid);
+        else 
+          active_processes = historyrepository.findByProcessId(pid);
+
+        List<HistoryDTO> activehistoryDTOs = new ArrayList<>();
+
+        for (Object[] result : active_processes) {
+            if (!(result[3] instanceof String)) {
+              if(BaseTool.isNull(result[3])){
+                result[3] = "";
+              }else
+                result[3] = this.clobToString((Clob)result[3]);
+            }
+            HistoryDTO dto = new HistoryDTO(
+                (String) result[0],
+                (Date) result[1],
+                (Date) result[2],
+                (String) result[3],
+                (String) result[4],
+                (String) result[5],
+                (String) result[6]
+            );
+            activehistoryDTOs.add(dto);
+        }
+
+        json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(activehistoryDTOs);
+
+      }
 
       resp.append(json);
-
-      // resp.append("[");
-
-      // int num = 0;
-
-      // for(;num<active_processes.size();num++) {
-
-      // 	if(num!=0) {
-
-      // 		resp.append(", ");
-
-      // 	}
-
-      // 	History h = active_processes.get(num);
-
-      // 	resp.append("{ \"id\": \"").append(h.getHistory_id()).append("\", ");
-
-      // 	resp.append("\"begin_time\": \"").append(h.getHistory_begin_time());
-
-      // 	resp.append("\", \"end_time\": \"").append(h.getHistory_end_time());
-
-      // 	resp.append("\", \"output\":
-      // \"").append(bt.escape(String.valueOf(h.getHistory_output())));
-
-      // 	resp.append("\", \"status\": \"").append(bt.escape(String.valueOf(h.getIndicator())));
-
-      // 	resp.append("\", \"host\": \"").append(bt.escape(String.valueOf(h.getHost_id())));
-
-      // 	resp.append("\"}");
-
-      // }
-
-      // resp.append("]");
 
     } catch (Exception e) {
 
