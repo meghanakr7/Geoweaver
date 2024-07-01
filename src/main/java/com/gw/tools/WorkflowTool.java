@@ -607,6 +607,7 @@ public class WorkflowTool {
     String workflowstring = bt.toJSON(wf);
 
     bt.writeString2File(workflowstring, savefilepath + "workflow.json");
+    bt.writeString2File(workflowstring, savefilepath + "README.md");
 
     if (option.contains("processcode")) {
 
@@ -793,6 +794,7 @@ public class WorkflowTool {
 
   private String createReadme(Workflow wf) {
     String readmeTemplate = 
+      
         "# Workflow Name: {workflow_name}\n\n" +
         "## Description\n" +
         "{description}\n\n" +
